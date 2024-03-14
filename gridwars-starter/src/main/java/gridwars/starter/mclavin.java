@@ -40,7 +40,7 @@ public class mclavin implements PlayerBot {
             
             
             
-            if ( turnNum <120 || turnNum > 140) {
+            if ( turnNum <100 || turnNum > 120) {
                 if (currentPopulation>5) {
                     // System.out.print("=========");
                     int split = 1;
