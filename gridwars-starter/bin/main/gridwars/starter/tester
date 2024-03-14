@@ -11,27 +11,35 @@ import java.util.List;
 /**
  * Simple bot that expands into all directions if there is a cell that does not belong to the bot
  */
-public class MovingBot implements PlayerBot {
+public class ExpandBot implements PlayerBot {
 
     public void getNextCommands(UniverseView universeView, List<MovementCommand> commandList) {
         List<Coordinates> myCells = universeView.getMyCells();
 
-
         for (Coordinates cell : myCells) {
             int currentPopulation = universeView.getPopulation(cell);
+
             
-            if (currentPopulation > 5) {
+            if (currentPopulation > 55) {
+                int split = 1;
 
+                // Check left, right, up, down for cells that don't belong to me
                 for (MovementCommand.Direction direction : MovementCommand.Direction.values()) {
-
-                    if (universeView.getPopulation(cell.getNeighbour(direction)) < currentPopulation){
-                    commandList.add(new MovementCommand(cell, direction, currentPopulation / 4));
+                    if (!universeView.belongsToMe(cell.getNeighbour(direction))) {
+                        split++;
                     }
-                    
+                }
+
+                // Expand
+                for (MovementCommand.Direction direction : MovementCommand.Direction.values()) {
+                    if (!universeView.belongsToMe(cell.getNeighbour(direction))) {
+                        commandList.add(new MovementCommand(cell, direction, currentPopulation / split));
+                    }
                 }
             }
+            System.out.print(currentPopulation);
 
-
+            break;
         }
     }
 }

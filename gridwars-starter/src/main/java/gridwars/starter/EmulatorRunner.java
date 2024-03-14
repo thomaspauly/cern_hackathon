@@ -10,7 +10,7 @@ public class EmulatorRunner {
 
     public static void main(String[] args) {
         MovingBot blueBot = new MovingBot();
-        ExpandBot redBot = new ExpandBot();
+        mclavin redBot = new mclavin();
 
         Emulator.playMatch(blueBot, redBot);
     }
